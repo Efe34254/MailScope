@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability privately
+    url: https://github.com/Efe34254/MailScope/security/advisories/new
+    about: Never disclose vulnerabilities, credentials or real evidence in a public issue.
