@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-07-19",
+  "platform": "windows-x86_64",
+  "tools": {
+    "capa": {
+      "version": "9.4.0",
+      "executable": "capa/capa.exe",
+      "executable_sha256": "356DB59A7F0D22B00EE63BDA6EBB5B05149530EEC5DD84101CAEF6D6BAE94DFD",
+      "archive": "capa-v9.4.0-windows.zip",
+      "archive_sha256": "670AB1A58B81F59CB57533BF4021AC1E7033FBE9B5D5CC180F796976081E3BB5",
+      "source": "https://github.com/mandiant/capa/releases/download/v9.4.0/capa-v9.4.0-windows.zip",
+      "license": "Apache-2.0"
+    },
+    "floss": {
+      "version": "3.1.1",
+      "executable": "floss/floss.exe",
+      "executable_sha256": "3A208AB834B4791E81592D66E91A7F07B3458504484D87C44ED32BC7384DF7EF",
+      "archive": "floss-v3.1.1-windows.zip",
+      "archive_sha256": "6C71089B8C629C69424B042769F1565F71ADC6CD24B2F8D3713C96FA7FDAC2FB",
+      "source": "https://github.com/mandiant/flare-floss/releases/download/v3.1.1/floss-v3.1.1-windows.zip",
+      "license": "Apache-2.0"
+    },
+    "exiftool": {
+      "version": "13.59",
+      "executable": "exiftool/exiftool.exe",
+      "executable_sha256": "68C079C32FDAE0D6C7130E9A5FB73F8AC9DABDF9AB8DA312DA4F6C549D6D3385",
+      "archive": "exiftool-13.59_64.zip",
+      "archive_sha256": "44B512B25AF500724BA579D0A53C8FC5851628B692DD5E5D94AE4A15C2CBA9EC",
+      "source": "https://sourceforge.net/projects/exiftool/files/exiftool-13.59_64.zip/download",
+      "license": "Same terms as Perl"
+    }
+  }
+}
