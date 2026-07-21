@@ -31,10 +31,18 @@ Invoke-Native $VenvPython -m pip install -r requirements.txt
 Invoke-Native $VenvPython -m pytest -q
 
 Write-Host '[4/5] Node.js kontrol ediliyor...' -ForegroundColor Cyan
-$Npm = Assert-Command 'npm.cmd' 'Node.js 20 LTS veya daha yeni bir surum kurun.'
-$Node = Assert-Command 'node.exe' 'Node.js 20 LTS veya daha yeni bir surum kurun.'
-$NodeMajor = [int]((& $Node --version).TrimStart('v').Split('.')[0])
-if ($NodeMajor -lt 20) { throw "Node.js 20+ gerekli. Bulunan surum: $(& $Node --version)" }
+$Npm = Assert-Command 'npm.cmd' 'Node.js 22 LTS 22.12.0 veya daha yeni bir surum kurun.'
+$Node = Assert-Command 'node.exe' 'Node.js 22 LTS 22.12.0 veya daha yeni bir surum kurun.'
+$NodeVersionText = (& $Node --version).Trim().TrimStart('v')
+try {
+    $NodeVersion = [version]$NodeVersionText
+} catch {
+    throw "Node.js surumu okunamadi: $NodeVersionText"
+}
+$MinimumNodeVersion = [version]'22.12.0'
+if ($NodeVersion -lt $MinimumNodeVersion) {
+    throw "Node.js $MinimumNodeVersion veya daha yeni bir surum gerekli. Bulunan surum: $NodeVersion"
+}
 
 Write-Host '[5/5] Masaustu bagimliliklari kuruluyor...' -ForegroundColor Cyan
 Set-Location $Desktop

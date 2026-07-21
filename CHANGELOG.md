@@ -5,6 +5,15 @@ semantic versioning for application releases.
 
 ## [Unreleased]
 
+### Changed
+
+- Reorganized the README around capabilities, project status and quick-start
+  guidance.
+- Aligned source-build documentation and setup validation with Node.js 22 LTS
+  version 22.12.0 or later.
+- Added a reusable Rust/Tauri validation command that does not require a
+  tracked engine executable.
+
 ### Added
 
 - Apache License 2.0 and public-project governance documentation.

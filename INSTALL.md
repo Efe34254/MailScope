@@ -10,7 +10,7 @@ is published, build it from source on a trusted Windows workstation.
 - Microsoft Edge WebView2 Runtime
 - Microsoft C++ Build Tools with **Desktop development with C++**
 - Rust stable with the `x86_64-pc-windows-msvc` toolchain
-- Node.js 20 LTS or later and npm
+- Node.js 22 LTS version 22.12.0 or later and npm
 - Python 3.13 x64
 - Winget is optional; the setup script can use it to install Python 3.13 when
   Python is missing
@@ -57,10 +57,12 @@ run development mode against untrusted production evidence.
 Run the same major checks used by continuous integration:
 
 ```powershell
-.\engine\.venv\Scripts\python.exe -m pytest -q .\engine\tests
+Push-Location .\engine
+& .\.venv\Scripts\python.exe -m pytest -q
+Pop-Location
 npm --prefix .\apps\desktop ci
 npm --prefix .\apps\desktop run build
-cargo check --locked --manifest-path .\apps\desktop\src-tauri\Cargo.toml
+.\scripts\check-rust.ps1
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\check-public-repo.ps1
 ```
 
