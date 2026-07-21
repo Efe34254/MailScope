@@ -83,4 +83,16 @@ jobs:
 
       - name: Check Rust desktop shell
         shell: pwsh
-        run: cargo check --locked --manifest-path apps/desktop/src-tauri/Cargo.toml
+        run: |
+          # Tauri validates configured resource paths during cargo check. The
+          # real engine sidecar is produced only by the signed release build.
+          $sidecar = 'apps/desktop/src-tauri/binaries/mailscope-engine.exe'
+          New-Item -ItemType Directory -Path (Split-Path $sidecar) -Force | Out-Null
+          New-Item -ItemType File -Path $sidecar -Force | Out-Null
+          try {
+            cargo check --locked --manifest-path apps/desktop/src-tauri/Cargo.toml
+            if ($LASTEXITCODE -ne 0) { throw "cargo check failed with exit code $LASTEXITCODE" }
+          }
+          finally {
+            Remove-Item -LiteralPath $sidecar -Force -ErrorAction SilentlyContinue
+          }
