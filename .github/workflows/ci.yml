@@ -28,7 +28,7 @@ jobs:
         run: ./scripts/check-public-repo.ps1
 
       - name: Set up Python 3.13
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.13'
           architecture: x64
@@ -50,16 +50,21 @@ jobs:
         working-directory: engine
         run: python -m pytest -q
 
-      - name: Set up Node.js 20
-        uses: actions/setup-node@v4
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v6
         with:
-          node-version: '20'
+          node-version: '24'
           cache: npm
           cache-dependency-path: apps/desktop/package-lock.json
 
       - name: Install frontend dependencies
+        shell: pwsh
         working-directory: apps/desktop
-        run: npm ci
+        run: |
+          npm ci --no-audit --no-fund
+          if (-not (Test-Path -LiteralPath './node_modules/.bin/tsc.cmd' -PathType Leaf)) {
+            throw 'npm ci completed without installing the TypeScript compiler.'
+          }
 
       - name: Build frontend
         working-directory: apps/desktop
