@@ -6,10 +6,6 @@
 
 Privacy-first Windows email intelligence desktop application using Tauri, React, Python and SQLite.
 
-> **Project status:** source preview v1.1.0. No official signed Windows binary
-> or tagged release has been published yet. Build only on a trusted Windows
-> workstation. MailScope has not undergone an independent security audit.
-
 ## What MailScope does
 
 MailScope helps SOC analysts, incident responders and security teams triage
