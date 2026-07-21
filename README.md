@@ -1,6 +1,14 @@
 # MailScope v1.1.0
 
+[![CI](https://github.com/Efe34254/MailScope/actions/workflows/ci.yml/badge.svg)](https://github.com/Efe34254/MailScope/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-Windows-0078D4.svg)](INSTALL.md)
+
 Privacy-first Windows email intelligence desktop application using Tauri, React, Python and SQLite.
+
+> **Release status:** the source is public, but no official signed Windows
+> binary has been published yet. Build from source on a trusted workstation.
+> Official executables will be released only after code signing is configured.
 
 ## Screenshots
 
@@ -76,8 +84,20 @@ The gallery uses selectively redacted local test data. Navigation, analysis find
 
 </details>
 
-## Build
-Extract the ZIP into a clean folder and run `Build-MailScope.cmd`.
+## Build and install
+
+MailScope supports Windows 10 version 1803 or later and Windows 11 on x64.
+Building requires Microsoft C++ Build Tools, WebView2, Rust stable with the MSVC
+toolchain, Node.js 20+ and Python 3.13. The setup script can install Python 3.13
+through Winget when it is missing.
+
+Clone or extract the repository into a clean directory and run
+`Build-MailScope.cmd`. The script installs locked dependencies, downloads and
+verifies the pinned SOC tools, runs the Python test suite, and creates the NSIS
+installer, portable ZIP, checksums and release manifest under `output\`.
+
+See [INSTALL.md](INSTALL.md) for prerequisites, development commands, local
+validation, troubleshooting and uninstall/data-removal guidance.
 
 The repository does not store third-party executable binaries. During setup, `scripts\download-soc-tools.ps1` downloads the pinned official capa, FLOSS and ExifTool archives, verifies their SHA-256 values from `engine\tools\manifest.json`, extracts only the required runtime files, and verifies each executable again before build.
 
@@ -110,3 +130,14 @@ MailScope is designed as a Windows analyst triage workstation: it parses message
 Before enterprise deployment, sign both the application and installer with the organization's trusted code-signing certificate, distribute through a managed software channel, and validate outbound provider access against the organization's data-handling policy. Set `MAILSCOPE_SIGN_CERT_THUMBPRINT` before running `scripts\build.ps1`; the build fails if signing or signature verification fails. Every build also emits `SHA256SUMS.txt` and `release-manifest.json`.
 
 MailScope is a full static email-triage workstation, but it does not execute suspicious content. It does not replace an isolated malware sandbox, EDR, SIEM, enterprise case-management platform, or mail-gateway quarantine product.
+
+## Project documentation
+
+- [Installation and source build](INSTALL.md)
+- [Security policy](SECURITY.md)
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+- [Release process](docs/RELEASING.md)
+- [Third-party notices](THIRD_PARTY_NOTICES.md)
+
+MailScope is licensed under the [Apache License 2.0](LICENSE).

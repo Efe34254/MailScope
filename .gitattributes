@@ -1,0 +1,9 @@
+# Integrity manifests hash YARA rule bytes. Keep their line endings stable on
+# Windows even when a contributor has core.autocrlf enabled.
+*.yar  text eol=lf
+*.yara text eol=lf
+
+# GitHub and documentation files are cross-platform text.
+*.yml  text eol=lf
+*.yaml text eol=lf
+*.md   text eol=lf

@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Windows static-analysis build checks
+    runs-on: windows-latest
+    timeout-minutes: 50
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Check public-repository hygiene
+        shell: pwsh
+        run: ./scripts/check-public-repo.ps1
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+          architecture: x64
+          cache: pip
+          cache-dependency-path: engine/requirements.txt
+
+      - name: Install Python dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install -r engine/requirements.txt
+
+      - name: Download and verify pinned SOC tools
+        shell: pwsh
+        run: ./scripts/download-soc-tools.ps1
+
+      - name: Run Python tests
+        shell: pwsh
+        working-directory: engine
+        run: python -m pytest -q
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22.20.0'
+          cache: npm
+          cache-dependency-path: apps/desktop/package-lock.json
+
+      - name: Pin npm for Windows reliability
+        run: npm install --global npm@10.9.3
+
+      - name: Install frontend dependencies
+        shell: pwsh
+        timeout-minutes: 5
+        working-directory: apps/desktop
+        run: |
+          npm --version
+          npm ci --no-audit --no-fund
+          if (-not (Test-Path -LiteralPath './node_modules/.bin/tsc.cmd' -PathType Leaf)) {
+            throw 'npm ci completed without installing the TypeScript compiler.'
+          }
+
+      - name: Build frontend
+        working-directory: apps/desktop
+        run: npm run build
+
+      - name: Select stable Rust MSVC toolchain
+        shell: pwsh
+        run: |
+          rustup toolchain install stable-msvc --profile minimal
+          rustup default stable-msvc
+
+      - name: Check Rust desktop shell
+        shell: pwsh
+        run: |
+          # Tauri validates configured resource paths during cargo check. The
+          # real engine sidecar is produced only by the signed release build.
+          $sidecar = 'apps/desktop/src-tauri/binaries/mailscope-engine.exe'
+          New-Item -ItemType Directory -Path (Split-Path $sidecar) -Force | Out-Null
+          New-Item -ItemType File -Path $sidecar -Force | Out-Null
+          try {
+            cargo check --locked --manifest-path apps/desktop/src-tauri/Cargo.toml
+            if ($LASTEXITCODE -ne 0) { throw "cargo check failed with exit code $LASTEXITCODE" }
+          }
+          finally {
+            Remove-Item -LiteralPath $sidecar -Force -ErrorAction SilentlyContinue
+          }
