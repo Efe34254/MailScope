@@ -73,6 +73,9 @@ jobs:
           cache: npm
           cache-dependency-path: apps/desktop/package-lock.json
 
+      - name: Pin npm for Windows reliability
+        run: npm install --global npm@10.9.3
+
       - name: Select stable Rust MSVC toolchain
         shell: pwsh
         run: |
