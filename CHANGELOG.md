@@ -12,6 +12,8 @@ semantic versioning for application releases.
   Python tests, frontend builds and Rust checks.
 - A tag-based, code-signing-gated draft release workflow.
 - Detailed source-build and security reporting documentation.
+- Public npm dependency metadata and a hygiene check that rejects internal
+  build-service hostnames.
 
 ## [1.1.0] - 2026-07-21
 

@@ -23,6 +23,7 @@ try {
 
     $contentPatterns = @(
         @{ Name = 'absolute workstation path'; Pattern = '(?i)([A-Z]:\\Users\\[^\\\s]+\\|/home/[^/\s]+/|/Users/[^/\s]+/)' },
+        @{ Name = 'internal build-service hostname'; Pattern = '(?i)\b(?:[A-Za-z0-9-]+\.)*internal\.api\.openai\.org\b' },
         @{ Name = 'GitHub token'; Pattern = '(?i)\bgh[pousr]_[A-Za-z0-9]{20,}\b' },
         @{ Name = 'OpenAI-style secret key'; Pattern = '\bsk-[A-Za-z0-9_-]{20,}\b' },
         @{ Name = 'Google API key'; Pattern = '\bAIza[0-9A-Za-z_-]{30,}\b' },
