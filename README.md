@@ -2,6 +2,80 @@
 
 Privacy-first Windows email intelligence desktop application using Tauri, React, Python and SQLite.
 
+## Screenshots
+
+The gallery uses selectively redacted local test data. Navigation, analysis findings, risk scores, provider status and report controls remain visible; email identities, indicator values and API keys are blurred.
+
+<details open>
+<summary><strong>Dashboard</strong> — activity totals and recent investigations</summary>
+
+![MailScope dashboard](docs/screenshots/dashboard.png)
+
+</details>
+
+<details>
+<summary><strong>Analyze: Triage</strong> — verdict, priority findings, message identity and case workflow</summary>
+
+![MailScope triage view](docs/screenshots/analyze-triage.png)
+
+</details>
+
+<details>
+<summary><strong>Analyze: Evidence</strong> — findings, indicators, files and tool output</summary>
+
+![MailScope evidence view](docs/screenshots/analyze-evidence.png)
+
+</details>
+
+<details>
+<summary><strong>Analyze: Message</strong> — safe preview, headers and source inspection</summary>
+
+![MailScope message view](docs/screenshots/analyze-message.png)
+
+</details>
+
+<details>
+<summary><strong>Analyze: Report</strong> — investigation export formats</summary>
+
+![MailScope report packaging view](docs/screenshots/analyze-report.png)
+
+</details>
+
+<details>
+<summary><strong>Cases</strong> — saved investigation history</summary>
+
+![MailScope cases view](docs/screenshots/cases.png)
+
+</details>
+
+<details>
+<summary><strong>Indicators</strong> — normalized IOC inventory with provenance and safe-query status</summary>
+
+![MailScope indicators view](docs/screenshots/indicators.png)
+
+</details>
+
+<details open>
+<summary><strong>Intelligence</strong> — online reputation providers and credential configuration</summary>
+
+![MailScope intelligence providers view](docs/screenshots/intelligence.png)
+
+</details>
+
+<details>
+<summary><strong>Reports</strong> — saved-analysis report export</summary>
+
+![MailScope reports view](docs/screenshots/reports.png)
+
+</details>
+
+<details>
+<summary><strong>Settings</strong> — retention, query policy, backup, YARA and privacy auditing</summary>
+
+![MailScope settings view](docs/screenshots/settings.png)
+
+</details>
+
 ## Build
 Extract the ZIP into a clean folder and run `Build-MailScope.cmd`.
 
