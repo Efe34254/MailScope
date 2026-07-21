@@ -1,6 +1,6 @@
 pydantic==2.11.7
 pytest==8.4.1
-pyinstaller==6.15.0
+pyinstaller==6.21.0
 yara-python==4.5.4
 oletools==0.60.2
 pypdf==5.7.0
