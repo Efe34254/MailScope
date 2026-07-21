@@ -66,10 +66,10 @@ jobs:
           cache: pip
           cache-dependency-path: engine/requirements.txt
 
-      - name: Set up Node.js 24
+      - name: Set up Node.js 22
         uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '22.20.0'
           cache: npm
           cache-dependency-path: apps/desktop/package-lock.json
 
